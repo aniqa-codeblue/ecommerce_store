@@ -18,6 +18,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/index', function () {
-    return view('index.blade.php');
-});
+//authentication routes
+// Auth::routes();
+

@@ -4,13 +4,13 @@
 <div class="container">
         <h3 align="center">Category</h3>
 
-
+</br>
         <div class="row">
             <div class="col-md-2">
             </div>
             <div class="col-md-8">
             <div class="form-area">
-                <form method="POST" action="{{ route{'category.store'} }}">
+                <form method="POST" action="{{ route('category.store') }}">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -21,9 +21,9 @@
                         <div class="col-md-6">
                             <label>Status</label>
                             <select class="form-control" name="status">
-                                <option selected>select menu</option>
+                                <option selected>select status</option>
                                 <option value="1">True</option>
-                                <option value="2">False</option>
+                                <option value="0">False</option>
                             </select>
                         </div>
                     </div>
@@ -90,3 +90,4 @@
             background-color: white;
         }
     </style>
+@endpush

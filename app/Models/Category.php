@@ -15,5 +15,9 @@ class Category extends Model
         'status'
     ];
 
+    public function products() {
+        return $this->hasMany(Product::class, 'cat_id');
+    }
+
     use HasFactory;
 }

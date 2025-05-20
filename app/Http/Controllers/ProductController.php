@@ -3,24 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
-
-    protected $category;
-
-    public function __construct(){
-        $this->category = new Category();
-    }
-
     /**
      * Display a listing of the resource.
      */
+    protected $products;
+
+    public function __construct() {
+        $this->products = new Product();
+    }
+
     public function index()
     {
-        $categories = $this->category->all();
-        return view('pages.category.index')->with('categories', $categories);
+        $products = $this->products->all();
+        $categories = Category::pluck('name', 'id');
+
+        return view('pages.products.index', compact('products', 'categories'));
     }
 
     /**
@@ -36,7 +39,22 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->category->create($request->all());
+        $validatedData = $request->validate([
+            'productName' => 'required',
+            'cat_id' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->hasFile('picture')) {
+            $fileName = time().$request->file('picture')->getClientOriginalName();
+            $request->file('picture')>move(public_path('images'), $fileName);
+
+            $validatedData['picture'] = $fileName;
+        }
+
+        Product::create($validatedData);
         return redirect()->back();
     }
 

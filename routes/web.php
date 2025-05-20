@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +20,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('category', CategoryController::class);
+Route::resource('product', ProductController::class);
+//Route::resource('/home', HomeController::class);
 
-Route::get('/index', function () {
-    return view('index.blade.php');
-});
+//authentication routes
+// Auth::routes();
+
+// Route::get('/index', function () {
+//     return view('pages.category.index');
+// });
